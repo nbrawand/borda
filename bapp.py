@@ -4,7 +4,7 @@ from typing import Tuple, Dict
 import numpy as np
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 st.set_page_config(page_title="Borda Count Ranker", layout="wide")
 
