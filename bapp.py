@@ -9,11 +9,10 @@ from matplotlib import pyplot as plt
 st.set_page_config(page_title="Borda Count Ranker", layout="wide")
 
 st.title("Borda Count Ranker")
-st.caption("""Upload a CSV where **rows are dimensions** and **columns are items** (cells are scores >=0).
-
-Borda ranking is a consensus-based method for combining preferences across multiple criteria.
+st.caption("""Borda ranking is a consensus-based method for combining preferences across multiple criteria.
 Rather than simply averaging scores with arbitrary weights, it ranks items within each dimension and then assigns points based on those ranks. Each item is effectively compared against every other item: when it ranks higher, it “wins” points; when it ranks lower, it loses points. The total across all dimensions determines the overall ranking.
 
+Upload a CSV where **rows are dimensions** and **columns are items** (cells are scores >=0).
 """)
 
 with st.expander("CSV format & example"):
