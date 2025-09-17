@@ -191,6 +191,34 @@ if f is not None:
                 mime="text/csv",
             )
 
+            # --- Visualizations ---
+            st.markdown("### Visualizations")
+            tab1, tab2 = st.tabs(["Heatmap: Raw Scores", "Bar Chart: Borda Totals"])
+
+            with tab1:
+                fig_bar, _ = plot_borda_bars(summary)
+                st.pyplot(fig_bar)
+                png_bar = _buf_png(fig_bar)
+                st.download_button(
+                    label="⬇️ Download bar chart (PNG)",
+                    data=png_bar,
+                    file_name="borda_totals.png",
+                    mime="image/png",
+                )
+
+            with tab2:
+                plt.close(fig_bar)
+                fig_hm, _ = plot_heatmap_scores(df_num)
+                st.pyplot(fig_hm)
+                png_hm = _buf_png(fig_hm)
+                st.download_button(
+                    label="⬇️ Download heatmap (PNG)",
+                    data=png_hm,
+                    file_name="scores_heatmap.png",
+                    mime="image/png",
+                )
+                plt.close(fig_hm)
+
             # --- Interpretations per item ---
             st.markdown("### Item Interpretations")
             n_dims, m_items = df_num.shape[0], df_num.shape[1]
@@ -210,34 +238,6 @@ if f is not None:
                         mime="image/png",
                     )
                     plt.close(fig_r)
-
-            # --- Visualizations ---
-            st.markdown("### Visualizations")
-            tab1, tab2 = st.tabs(["Heatmap: Raw Scores", "Bar Chart: Borda Totals"])
-
-            with tab1:
-                fig_hm, _ = plot_heatmap_scores(df_num)
-                st.pyplot(fig_hm)
-                png_hm = _buf_png(fig_hm)
-                st.download_button(
-                    label="⬇️ Download heatmap (PNG)",
-                    data=png_hm,
-                    file_name="scores_heatmap.png",
-                    mime="image/png",
-                )
-                plt.close(fig_hm)
-
-            with tab2:
-                fig_bar, _ = plot_borda_bars(summary)
-                st.pyplot(fig_bar)
-                png_bar = _buf_png(fig_bar)
-                st.download_button(
-                    label="⬇️ Download bar chart (PNG)",
-                    data=png_bar,
-                    file_name="borda_totals.png",
-                    mime="image/png",
-                )
-                plt.close(fig_bar)
 
             with st.expander("Per-dimension Borda points (diagnostics)"):
                 st.caption("Points per dimension per item (higher is better).")
