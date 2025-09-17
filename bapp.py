@@ -9,7 +9,33 @@ from matplotlib import pyplot as plt
 st.set_page_config(page_title="Borda Count Ranker", layout="wide")
 
 st.title("Borda Count Ranker")
-st.caption("Upload a CSV where **rows are dimensions** and **columns are items** (cells are scores 1–5).")
+st.caption("""Upload a CSV where **rows are dimensions** and **columns are items** (cells are scores 1–5).
+
+## Understanding Borda Ranking
+
+### What is Borda Ranking?
+Borda ranking is a **consensus-based method** for combining preferences across multiple criteria.  
+Instead of just averaging raw scores, it looks at the **relative standing of each item within each dimension**:
+
+- For each dimension, items are ranked from best to worst.  
+- The top item gets the most points, the next gets slightly fewer, and so on.  
+- Ties share the average of the points they would have received.  
+- Points are then **summed across dimensions**, and the item with the highest total ranks #1 overall.  
+
+---
+
+### Why use Borda instead of simple aggregation?
+- **Removes scale bias** – Different dimensions may use the 1–5 scale differently (some raters are stricter or looser). Borda focuses on *relative order*, not raw numbers.  
+- **Balances outliers** – A single extreme score can dominate an average, but in Borda an item must rank well consistently.  
+- **Handles ties fairly** – Equal performance within a dimension gives equal credit.  
+- **Favors consensus** – Borda highlights items that are strong across the board, rather than polarizing ones that excel in some areas but fail in others.  
+
+---
+
+✅ **In short:** Borda ranking rewards **consistent, well-rounded performance** across all dimensions, while simple averaging can be skewed by scale differences, outliers, or uneven scoring.
+
+
+""")
 
 with st.expander("CSV format & example"):
     st.markdown(
